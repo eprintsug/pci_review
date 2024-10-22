@@ -86,13 +86,18 @@ sub render_request_form
 	$div->appendChild( $help );
 
 	my $form = $div->appendChild( $self->{processor}->screen->render_form( "request_review" ) );
+
+	my @inboxes = keys %{$repo->get_conf("ldn_inboxes", "pci_review")};
+	my %labels;
+	foreach my $key(@inboxes){
+	   $labels{$key} = $repo->phrase("pci_review/inbox:label_".$key);
+	}
+
 	$form->appendChild($repo->render_option_list( 
 			name => 'pci_community', 
-			values => ["evol_biol", "ecology"], 
-			labels => {evol_biol => "PCI Evol Bio", ecology => "PCI Ecology"}
+			values => \@inboxes,
+			labels => \%labels
 			) );
-
-
 
 	#$form->appendChild( $self->render_actions );
 	$form->appendChild( $repo->render_action_buttons(
@@ -110,6 +115,9 @@ sub action_request_review
         my $session = $self->{session};
         my $eprint =  $self->{processor}->{eprint};
         my $ds = $session->dataset( "ldn" );
+
+        my $ldn_inbox = EPrints::DataObj::LDNInbox->find_or_create($session, $session->param("pci_community"));
+
         my $ldn = EPrints::DataObj::LDN->create_from_data(
           $session,
           {
