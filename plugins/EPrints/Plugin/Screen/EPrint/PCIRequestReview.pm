@@ -110,35 +110,42 @@ sub render_request_form
 
 sub action_request_review
 {
-	my( $self ) = @_;
+    my( $self ) = @_;
 
-        my $session = $self->{session};
-        my $eprint =  $self->{processor}->{eprint};
-        my $ds = $session->dataset( "ldn" );
+    my $session = $self->{session};
+    my $eprint =  $self->{processor}->{eprint};
+    my $ldn_ds = $session->dataset( "ldn" );
+    my $ldn_inbox_ds = $session->dataset( "ldn_inbox" );
 
-        my $ldn_inbox = EPrints::DataObj::LDNInbox->find_or_create($session, $session->param("pci_community"));
+    # QUESTION: Does this need to happen here? Or do we only try and find the LDN Inbox when we buld the payload, i.e. when we actually need it (but maybe that's too late...?)
+    my $ldn_inbox = $ldn_inbox_ds->dataobj_class->find_or_create( $session, $session->param( "pci_community" ) );
 
-        my $ldn = EPrints::DataObj::LDN->create_from_data(
-          $session,
-          {
-              from => $session->get_conf("base_url"),
-              to => $session->param("pci_community"),
-              type => "OfferEndorsement",
-          },
-          $ds
-       );
+    my $ldn = EPrints::DataObj::LDN->create_from_data(
+        $session,
+        {
+            from => $session->get_conf("base_url"),
+            to => $session->param("pci_community"),
+            type => "OfferEndorsement",
+        },
+        $ldn_ds
+    );
 
-       my @docs = $eprint->get_all_documents;
-       my $document = $docs[0];
-       print STDERR "DOC: ".$document."\n";
-       my $user = $self->{session}->current_user;
-       my $json = $ldn->_create_payload($eprint,$user,$session->param("pci_community"),$document);
-       print STDERR "JSON : $json\n";
-       $ldn->set_value("content", $json);
-       $ldn->commit;
+    my @docs = $eprint->get_all_documents;
+    my $document = $docs[0];
+    print STDERR "DOC: ".$document."\n";
+    my $user = $self->{session}->current_user;
+    my $json = $ldn->_create_payload(
+        $eprint, # OBJECT
+        $user, # ACTOR
+        $document # SUB OBJECT
+    );
 
-	$self->{processor}->add_message( "message",
-		$self->html_phrase( "success" ) );
+    print STDERR "JSON : $json\n";
+    $ldn->set_value("content", $json);
+    $ldn->commit;
+
+    $self->{processor}->add_message( "message",
+    $self->html_phrase( "success" ) );
 
 }
 
