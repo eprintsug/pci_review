@@ -115,10 +115,6 @@ sub action_request_review
     my $session = $self->{session};
     my $eprint =  $self->{processor}->{eprint};
     my $ldn_ds = $session->dataset( "ldn" );
-    my $ldn_inbox_ds = $session->dataset( "ldn_inbox" );
-
-    # QUESTION: Does this need to happen here? Or do we only try and find the LDN Inbox when we buld the payload, i.e. when we actually need it (but maybe that's too late...?)
-    my $ldn_inbox = $ldn_inbox_ds->dataobj_class->find_or_create( $session, $session->param( "pci_community" ) );
 
     my $ldn = EPrints::DataObj::LDN->create_from_data(
         $session,
@@ -134,15 +130,12 @@ sub action_request_review
     my $document = $docs[0];
     print STDERR "DOC: ".$document."\n";
     my $user = $self->{session}->current_user;
-    my $json = $ldn->_create_payload(
+    $ldn->create_payload_and_send(
         $eprint, # OBJECT
         $user, # ACTOR
         $document # SUB OBJECT
     );
 
-    print STDERR "JSON : $json\n";
-    $ldn->set_value("content", $json);
-    $ldn->commit;
 
     $self->{processor}->add_message( "message",
     $self->html_phrase( "success" ) );
