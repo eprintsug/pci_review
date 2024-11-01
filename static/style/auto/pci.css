@@ -1,0 +1,7 @@
+.pci_request_review_form{
+    text-align: left;
+}
+
+.pci_request_review_form form > div{
+    display: inline-block;
+}

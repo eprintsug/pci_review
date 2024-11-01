@@ -10,6 +10,8 @@ package EPrints::Plugin::Screen::EPrint::PCIRequestReview;
 
 use strict;
 
+use PCI_Review::Utils;
+
 sub new
 {
 	my( $class, %params ) = @_;
@@ -27,6 +29,18 @@ sub new
 	$self->{disable}  = 0;
 
 	return $self;
+}
+
+sub properties_from
+{
+    my( $self ) = @_;
+
+    my $repo = $self->repository;
+    $self->SUPER::properties_from;
+
+    my $eprint = $self->{processor}->{eprint};
+ 
+    $self->{processor}->{ldns} = PCI_Review::Utils::get_pci_requests( $repo, $eprint );
 }
 
 #sub can_be_viewed
@@ -62,7 +76,11 @@ sub render
 
 	$frag->appendChild( $self->html_phrase( "help" ) );
 
+    # form
 	$frag->appendChild( $self->render_request_form );
+
+    # requests
+    $frag->appendChild( $self->render_requests );
 
 	return $frag;
 }
@@ -75,7 +93,7 @@ sub render_request_form
 	my $xml = $repo->xml;
 	my $xhtml = $repo->xhtml;
 
-	my $div = $xml->create_element( "div", class => "ep_block ep_sr_component" );
+	my $div = $xml->create_element( "div", class => "ep_block ep_sr_component pci_request_review_form" );
 
 	my $title = $xml->create_element( "h2", id => "data_label" );
 	$title->appendChild( $self->html_phrase( "data" ) );
@@ -122,13 +140,14 @@ sub action_request_review
             from => $session->get_conf("base_url"),
             to => $session->param("pci_community"),
             type => "OfferEndorsement",
+            subject_id => $eprint->id,
+            subject_dataset => "eprint",
         },
         $ldn_ds
     );
 
     my @docs = $eprint->get_all_documents;
     my $document = $docs[0];
-    print STDERR "DOC: ".$document."\n";
     my $user = $self->{session}->current_user;
     $ldn->create_payload_and_send(
         $eprint, # OBJECT
@@ -141,6 +160,42 @@ sub action_request_review
     $self->html_phrase( "success" ) );
 
 }
+
+sub render_requests
+{
+	my( $self ) = @_;
+
+	my $repo = $self->{repository};
+	my $xml = $repo->xml;
+	my $xhtml = $repo->xhtml;
+
+	my $div = $xml->create_element( "div", class => "ep_block ep_sr_component pci_requests" );
+
+	my $title = $xml->create_element( "h2", id => "requests" );
+	$title->appendChild( $self->html_phrase( "requests" ) );
+	$div->appendChild( $title );
+
+	my $help = $xml->create_element( "p", id => "requests_help" );
+    $help->appendChild( $self->html_phrase( "requests_help" ) );
+	$div->appendChild( $help );
+
+    $self->{processor}->{ldns}->map( sub {
+        (undef, undef, my $ldn ) = @_;
+
+        $div->appendChild( $ldn->render_citation( "pci_ldn" ) );
+
+        # get responses
+        my $responses = $ldn->get_responses;
+        $responses->map( sub {
+            (undef, undef, my $response ) = @_;
+
+            $div->appendChild( $response->render_citation( "pci_ldn" ) );
+        } );    
+    } );
+
+	return $div;
+}
+
 
 1;
 

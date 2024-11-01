@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:cite="http://eprints.org/ep3/citation" xmlns:epc="http://eprints.org/ep3/control">
+        
+<div class="pci_ldn">
+    <span><epc:print expr="timestamp"/></span>
+    <span><epc:print expr="from"/></span>
+    <span><epc:print expr="to"/></span>
+    <span><epc:print expr="type"/></span>
+    <span><pre><epc:print expr="content"/></pre></span>
+</div>
+
+</cite:citation>
