@@ -4,7 +4,6 @@
         
 <div class="pci_ldn">
     <span><epc:print expr="timestamp"/></span>
-    <span><epc:print expr="from"/></span>
     <span><epc:print expr="to"/></span>
     <span><epc:print expr="type"/></span>
     <span><pre><epc:print expr="content"/></pre></span>

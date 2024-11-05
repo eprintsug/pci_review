@@ -1,7 +1,56 @@
+/**** PCI ****/
+
+/* PCI Status */
+div.pci_status{
+    background-color: #a3cef1;
+    padding: 10px;
+    width: 80%;
+}
+
+/* Request Form */
 .pci_request_review_form{
     text-align: left;
 }
 
 .pci_request_review_form form > div{
     display: inline-block;
+}
+
+/* Request */
+.pci_requests{
+    text-align: left;
+}
+
+.pci_ldn_request{
+    margin-bottom: 10px;
+    padding: 10px;
+
+    background: #f8f9fa;
+    border: 1px solid #c6c7c8;
+    border-left: 5px solid #e19141; // default to amber/pending status
+}
+
+.pci_ldn_request.pci_Reject, .pci_ldn_request.pci_TentativeReject{
+    border-left: 5px solid #c41f1f;
+}
+
+.pci_ldn_request.pci_AnnounceReview, .pci_ldn_request.pci_AnnounceEndorsement{
+    border-left: 5px solid #1f7e02;
+}
+
+.pci_ldn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pci_ldn pre{
+    display: none;
+}
+
+.pci_ldn_response{
+    margin: 10px 10px 10px 20px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #c6c7c8;
 }

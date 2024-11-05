@@ -3,6 +3,7 @@
 
 <epp:phrases xmlns="http://www.w3.org/1999/xhtml" xmlns:epp="http://eprints.org/ep3/phrase" xmlns:epc="http://eprints.org/ep3/control">
 
+    <!-- Screen Action and Intro-->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:title">Submit to PCI</epp:phrase>
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:description">Submit this preprint to a PCI Community for review and potential endorsement.</epp:phrase>
 
@@ -11,6 +12,13 @@
         <p>For more information please see <a href="https://peercommunityin.org/" target="_blank">https://peercommunityin.org</a></p>
     </epp:phrase>
 
+    <!-- PCI Status -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:status">Current Status: </epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_fail">Request Failed</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_pending">Request Pending</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject">Rejected</epp:phrase>
+
+    <!-- Request Form -->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data">Choose a PCI Review Community</epp:phrase>
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data_help">Select a PCI Community to submit to from the dropdown.</epp:phrase>
 
@@ -19,5 +27,9 @@
     <epp:phrase id="pci_review/inbox:label_pci_paleo">Peer Community In Paleontology</epp:phrase>
 
     <epp:phrase id="Plugin/Screen/PCIRequestReview:action_request">Submit Review Request</epp:phrase>
+
+    <!-- PCI Requests -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:requests">Requests</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:requests_help">Past and present notifications sent and received from PCI communities concerning this preprint are presented below.</epp:phrase>
 
 </epp:phrases>

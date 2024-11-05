@@ -14,8 +14,9 @@ sub get_pci_requests
         filters => [
             { meta_fields => [qw( subject_dataset )], value => "eprint" },
             { meta_fields => [qw( subject_id )], value => $eprint->id },
-            { meta_fields => [qw( to )], value => keys( $session->config( "ldn_inboxes", "pci_review" ) ), match => 'EQ', merge => 'ANY' },
+            { meta_fields => [qw( to )], value => "( ".join( " ", keys( $session->config( "ldn_inboxes", "pci_review" ) ) ) . " )", match => 'EQ', merge => 'ANY' },
         ],
+        custom_order => "-timestamp",
     );
 }
 

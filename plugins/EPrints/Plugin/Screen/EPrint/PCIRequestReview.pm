@@ -39,23 +39,37 @@ sub properties_from
     $self->SUPER::properties_from;
 
     my $eprint = $self->{processor}->{eprint};
- 
+
+    $self->{processor}->{status} = $eprint->get_pci_status;
+
+    print STDERR "status: " . $self->{processor}->{status} . "\n";
+
     $self->{processor}->{ldns} = PCI_Review::Utils::get_pci_requests( $repo, $eprint );
 }
 
-#sub can_be_viewed
-#{
-#	my( $self ) = @_;
-#
-#	return 1;
-#}
-
-sub allow_request_review
+sub can_be_viewed
 {
 	my( $self ) = @_;
 
+    # the eprint must be in the live archive
+    return 0 unless $self->{processor}->{eprint}->value( "eprint_status" ) eq "archive";
+
+
+    # and it must have an openly accessible full text
+    return 0 unless $self->{processor}->{eprint}->value( "full_text_status" ) eq "public";
+
 	return 1; #$self->allow( "eprint/derive_version" );
 }
+
+#sub allow_request_review
+#{
+#	my( $self ) = @_;
+#    print STDERR "allow_request_review\n";
+#    # the eprint must be in the live archive
+#    return 0 unless $self->{processor}->{eprint}->value( "status" ) eq "archive";
+#    print STDERR "yes allow\n";
+#	return 1; #$self->allow( "eprint/derive_version" );
+#}
 
 #sub about_to_render 
 #{
@@ -76,13 +90,42 @@ sub render
 
 	$frag->appendChild( $self->html_phrase( "help" ) );
 
-    # form
-	$frag->appendChild( $self->render_request_form );
+    # status
+    if( defined $self->{processor}->{status} )
+    {
+        $frag->appendChild( $self->render_status );    
+}
 
+    # present option to request review if no status or last response was reject
+    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "Reject" || $self->{processor}->{status}eq "fail" )
+    {
+        # form
+	    $frag->appendChild( $self->render_request_form );
+    }
+    
     # requests
     $frag->appendChild( $self->render_requests );
 
 	return $frag;
+}
+
+sub render_status
+{
+    my( $self )= @_;
+
+	my $repo = $self->{repository};
+	my $xml = $repo->xml;
+	my $xhtml = $repo->xhtml;
+
+	my $div = $xml->create_element( "div", class => "ep_block ep_sr_component pci_status" );
+
+    my $status = $self->{processor}->{status};
+ 	my $title = $xml->create_element( "h2", id => "status_label" );
+    $title->appendChild( $self->html_phrase( "status" ) );
+    $title->appendChild( $self->html_phrase( "pci_$status" ) );
+   	$div->appendChild( $title );
+
+    return $div;
 }
 
 sub render_request_form
@@ -182,20 +225,25 @@ sub render_requests
     $self->{processor}->{ldns}->map( sub {
         (undef, undef, my $ldn ) = @_;
 
-        $div->appendChild( $ldn->render_citation( "pci_ldn" ) );
+        my $status = $ldn->get_pci_status;
+
+        $div->appendChild( my $ldn_div = $xml->create_element( "div", class => "pci_ldn_request pci_$status" ) );
+        $ldn_div->appendChild( $ldn->render_citation( "pci_ldn" ) );
 
         # get responses
         my $responses = $ldn->get_responses;
-        $responses->map( sub {
-            (undef, undef, my $response ) = @_;
-
-            $div->appendChild( $response->render_citation( "pci_ldn" ) );
-        } );    
+        if( $responses )
+        {        
+            $responses->map( sub {
+                (undef, undef, my $response ) = @_;
+                $ldn_div->appendChild( my $response_div = $xml->create_element( "div", class => "pci_ldn_response" ) );
+                $response_div->appendChild( $response->render_citation( "pci_ldn" ) );
+            } );
+        }
     } );
 
 	return $div;
 }
-
 
 1;
 
