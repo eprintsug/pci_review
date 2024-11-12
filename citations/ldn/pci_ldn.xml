@@ -3,10 +3,23 @@
 <cite:citation xmlns="http://www.w3.org/1999/xhtml" xmlns:cite="http://eprints.org/ep3/citation" xmlns:epc="http://eprints.org/ep3/control">
         
 <div class="pci_ldn">
-    <span><epc:print expr="timestamp"/></span>
-    <span><epc:print expr="to"/></span>
-    <span><epc:print expr="type"/></span>
-    <span><pre><epc:print expr="content"/></pre></span>
+    <div class="pci_metadata">
+        <span class="pci_ldn_metadata pci_timestamp">
+            <dt><epc:phrase ref="ldn_fieldname_timestamp" /></dt>
+            <dd><epc:print expr="timestamp"/></dd>
+        </span>
+        <span class="pci_ldn_metadata pci_to">
+           <dt><epc:phrase ref="ldn_fieldname_to" /></dt>
+           <dd><epc:print expr="to"/></dd>
+        </span>
+        <span class="pci_ldn_metadata pci_type">
+           <dt><epc:phrase ref="ldn_fieldname_type" /></dt>
+           <dd><epc:print expr="type"/></dd>
+        </span>
+        <span class="ep_form_action_button pci_content_toggle">Show content</span>
+    </div>
+    <div class="pci_content pci_content_hide"><pre><epc:print expr="content"/></pre></div>
+
 </div>
 
 </cite:citation>

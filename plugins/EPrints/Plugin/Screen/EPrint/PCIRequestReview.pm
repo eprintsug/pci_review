@@ -54,22 +54,18 @@ sub can_be_viewed
     # the eprint must be in the live archive
     return 0 unless $self->{processor}->{eprint}->value( "eprint_status" ) eq "archive";
 
-
     # and it must have an openly accessible full text
     return 0 unless $self->{processor}->{eprint}->value( "full_text_status" ) eq "public";
 
 	return 1; #$self->allow( "eprint/derive_version" );
 }
 
-#sub allow_request_review
-#{
-#	my( $self ) = @_;
-#    print STDERR "allow_request_review\n";
-#    # the eprint must be in the live archive
-#    return 0 unless $self->{processor}->{eprint}->value( "status" ) eq "archive";
-#    print STDERR "yes allow\n";
-#	return 1; #$self->allow( "eprint/derive_version" );
-#}
+sub allow_request_review
+{
+	my( $self ) = @_;
+
+    return $self->can_be_viewed;
+}
 
 #sub about_to_render 
 #{
@@ -124,6 +120,10 @@ sub render_status
     $title->appendChild( $self->html_phrase( "status" ) );
     $title->appendChild( $self->html_phrase( "pci_$status" ) );
    	$div->appendChild( $title );
+
+    $div->appendChild( my $help_div = $xml->create_element( "div", class => "pci_status_help" ) );
+    $help_div->appendChild( $self->html_phrase( "pci_$status:help" ) );
+
 
     return $div;
 }
@@ -197,11 +197,6 @@ sub action_request_review
         $user, # ACTOR
         $document # SUB OBJECT
     );
-
-
-    $self->{processor}->add_message( "message",
-    $self->html_phrase( "success" ) );
-
 }
 
 sub render_requests
@@ -234,13 +229,20 @@ sub render_requests
         my $responses = $ldn->get_responses;
         if( $responses )
         {        
+            $ldn_div->appendChild( my $responses_div = $xml->create_element( "div", class=>"pci_ldn_responses" ) );
+            $responses_div->appendChild( my $responses_header = $xml->create_element( "span", class=>"pci_ldn_responses_header" ) );
+            $responses_header->appendChild( $self->html_phrase( "responses_header" ) );
+
             $responses->map( sub {
                 (undef, undef, my $response ) = @_;
-                $ldn_div->appendChild( my $response_div = $xml->create_element( "div", class => "pci_ldn_response" ) );
+                $responses_div->appendChild( my $response_div = $xml->create_element( "div", class => "pci_ldn_response" ) );
                 $response_div->appendChild( $response->render_citation( "pci_ldn" ) );
             } );
         }
     } );
+
+    # javascript for showing/hiding LDN payloads
+    $div->appendChild( $repo->make_javascript( 'initLDNListener();' ) );
 
 	return $div;
 }

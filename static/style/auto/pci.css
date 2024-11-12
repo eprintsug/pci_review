@@ -2,10 +2,21 @@
 
 /* PCI Status */
 div.pci_status{
-    background-color: #a3cef1;
-    padding: 10px;
+    border: 5px solid #a3cef1;
     width: 80%;
 }
+
+div.pci_status h2{
+    background-color: #a3cef1;
+    margin: 0px;
+    padding: 10px 0px;
+}
+
+div.pci_status .pci_status_help{
+    text-align: left;
+    padding: 20px;
+}
+
 
 /* Request Form */
 .pci_request_review_form{
@@ -38,14 +49,37 @@ div.pci_status{
     border-left: 5px solid #1f7e02;
 }
 
-.pci_ldn{
+.pci_ldn .pci_metadata{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.pci_ldn pre{
+.pci_ldn dt{
+    font-weight: bold;
+}
+
+.pci_ldn dd{
+    margin: 0;
+}
+
+.pci_content_toggle{
+    height: fit-content;
+}
+
+.pci_content_hide{
     display: none;
+}
+
+.pci_ldn pre{
+    background: #ffffe0;
+    border: 1px solid #c6c7c8;
+    padding: 20px;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;   
 }
 
 .pci_ldn_response{
