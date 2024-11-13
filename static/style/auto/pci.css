@@ -12,11 +12,14 @@ div.pci_status h2{
     padding: 10px 0px;
 }
 
-div.pci_status .pci_status_help{
+div.pci_status .pci_status_info{
     text-align: left;
     padding: 20px;
 }
 
+div.pci_status .pci_status_info div{
+    margin-bottom: 10px;
+}
 
 /* Request Form */
 .pci_request_review_form{

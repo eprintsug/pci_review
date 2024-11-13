@@ -21,6 +21,9 @@
 
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject:help">The PCI has rejected the offer to endorse the preprint.</epp:phrase>
 
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:summary">The response contained the following message: "<epc:pin name="summary"/>"</epp:phrase>
+
+
     <!-- Request Form and Action -->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data">Choose a PCI Review Community</epp:phrase>
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data_help">Select a PCI Community to submit to from the dropdown.</epp:phrase>

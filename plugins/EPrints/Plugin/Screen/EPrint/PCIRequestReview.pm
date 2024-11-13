@@ -40,9 +40,9 @@ sub properties_from
 
     my $eprint = $self->{processor}->{eprint};
 
-    $self->{processor}->{status} = $eprint->get_pci_status;
+    $self->{processor}->{latest_response} = $eprint->get_latest_pci_ldn->get_latest_response;
 
-    print STDERR "status: " . $self->{processor}->{status} . "\n";
+    $self->{processor}->{status} = $eprint->get_pci_status;
 
     $self->{processor}->{ldns} = PCI_Review::Utils::get_pci_requests( $repo, $eprint );
 }
@@ -66,13 +66,6 @@ sub allow_request_review
 
     return $self->can_be_viewed;
 }
-
-#sub about_to_render 
-#{
-#	my( $self ) = @_;
-#
-#	$self->EPrints::Plugin::Screen::EPrint::View::about_to_render;
-#}
 
 sub render
 {
@@ -121,9 +114,18 @@ sub render_status
     $title->appendChild( $self->html_phrase( "pci_$status" ) );
    	$div->appendChild( $title );
 
-    $div->appendChild( my $help_div = $xml->create_element( "div", class => "pci_status_help" ) );
+    $div->appendChild( my $info_div = $xml->create_element( "div", class => "pci_status_info" ) );
+
+    $info_div->appendChild( my $help_div = $xml->create_element( "div", class => "pci_status_help" ) );
     $help_div->appendChild( $self->html_phrase( "pci_$status:help" ) );
 
+    # show summary info
+    my $summary = $self->{processor}->{latest_response}->get_content_value( "summary" );
+    if( defined $summary )
+    {
+        $info_div->appendChild( my $summary_div = $xml->create_element( "div", class => "pci_status_summary" ) );
+        $summary_div->appendChild( $self->html_phrase( "pci_status:summary", summary => $repo->make_text( $summary ) ) );
+    }
 
     return $div;
 }
@@ -223,7 +225,7 @@ sub render_requests
         my $status = $ldn->get_pci_status;
 
         $div->appendChild( my $ldn_div = $xml->create_element( "div", class => "pci_ldn_request pci_$status" ) );
-        $ldn_div->appendChild( $ldn->render_citation( "pci_ldn" ) );
+        $ldn_div->appendChild( $ldn->render_citation( "pci_ldn_request" ) );
 
         # get responses
         my $responses = $ldn->get_responses;
@@ -236,7 +238,7 @@ sub render_requests
             $responses->map( sub {
                 (undef, undef, my $response ) = @_;
                 $responses_div->appendChild( my $response_div = $xml->create_element( "div", class => "pci_ldn_response" ) );
-                $response_div->appendChild( $response->render_citation( "pci_ldn" ) );
+                $response_div->appendChild( $response->render_citation( "pci_ldn_response" ) );
             } );
         }
     } );
