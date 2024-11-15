@@ -40,10 +40,18 @@ sub properties_from
 
     my $eprint = $self->{processor}->{eprint};
 
-    $self->{processor}->{latest_response} = $eprint->get_latest_pci_ldn->get_latest_response;
+    # get some handy values for this screen
+    my $latest_pci = $eprint->get_latest_pci_ldn;
+    if( defined $latest_pci )
+    {
+        # get our current status
+        $self->{processor}->{status} = $eprint->get_pci_status;
 
-    $self->{processor}->{status} = $eprint->get_pci_status;
+        # get our latest response
+        $self->{processor}->{latest_response} = $latest_pci->get_latest_response;
+    }
 
+    # and get all the requests we may have ever sent
     $self->{processor}->{ldns} = PCI_Review::Utils::get_pci_requests( $repo, $eprint );
 }
 
@@ -120,11 +128,26 @@ sub render_status
     $help_div->appendChild( $self->html_phrase( "pci_$status:help" ) );
 
     # show summary info
-    my $summary = $self->{processor}->{latest_response}->get_content_value( "summary" );
-    if( defined $summary )
+    if( defined $self->{processor}->{latest_response} )
     {
-        $info_div->appendChild( my $summary_div = $xml->create_element( "div", class => "pci_status_summary" ) );
-        $summary_div->appendChild( $self->html_phrase( "pci_status:summary", summary => $repo->make_text( $summary ) ) );
+        my $summary = $self->{processor}->{latest_response}->get_content_value( "summary" );
+        if( defined $summary )
+        {
+            $info_div->appendChild( my $summary_div = $xml->create_element( "div", class => "pci_status_summary" ) );
+            $summary_div->appendChild( $self->html_phrase( "pci_status:summary", summary => $repo->make_text( $summary ) ) );
+        }
+        elsif( $status eq "AnnounceReview" || $status eq "AnnounceEndorsement" )
+        {   
+            my $result = "Review";
+            $result = "Endorsement" if $status eq "AnnounceEndorsement";
+
+            my $review = $self->{processor}->{latest_response}->get_content_value( "object" )->{id};
+            my $link = $xml->create_element( "a", href => $review );
+            $link->appendChild( $repo->make_text( $review ) );
+
+            $info_div->appendChild( my $summary_div = $xml->create_element( "div", class => "pci_status_summary" ) );
+            $summary_div->appendChild( $self->html_phrase( "pci_status:$result", link => $link ) );
+        }
     }
 
     return $div;
@@ -229,7 +252,7 @@ sub render_requests
 
         # get responses
         my $responses = $ldn->get_responses;
-        if( $responses )
+        if( $responses->count > 0 )
         {        
             $ldn_div->appendChild( my $responses_div = $xml->create_element( "div", class=>"pci_ldn_responses" ) );
             $responses_div->appendChild( my $responses_header = $xml->create_element( "span", class=>"pci_ldn_responses_header" ) );
@@ -241,6 +264,14 @@ sub render_requests
                 $response_div->appendChild( $response->render_citation( "pci_ldn_response" ) );
             } );
         }
+        else
+        {
+            $ldn_div->appendChild( my $responses_div = $xml->create_element( "div", class=>"pci_ldn_responses" ) );
+            $responses_div->appendChild( my $responses_header = $xml->create_element( "span", class=>"pci_ldn_responses_header" ) );
+            $responses_header->appendChild( $self->html_phrase( "awaiting_response" ) );
+           
+        }
+
     } );
 
     # javascript for showing/hiding LDN payloads

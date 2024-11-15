@@ -18,10 +18,22 @@
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_pending">Request Pending</epp:phrase>
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject">Rejected</epp:phrase>
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeAccept">Tentatively Accept</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceReview">Announce Review</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceEndorsement">Announce Endorsement</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeReject">Tentative Reject</epp:phrase>
 
-    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject:help">The PCI has rejected the offer to endorse the preprint.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject:help">PCI has rejected the offer to endorse this record.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_fail:help">There was an issue sending the review reuest to PCI. Please try again.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_pending:help">The review request has been sent to PCI and is currently awaiting a response.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeAccept:help">PCI tentatively accepts the offer to begin the process of reviewing and potentially endorsing this record.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceReview:help">PCI has decided to endorse this record and has provided a link to the review.</epp:phrase> 
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceEndorsement:help">PCI has decided to endorse this record.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeReject:help">The editorial decision is that a revision to the record under review is required before endorsement is possible.</epp:phrase>
+
 
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:summary">The response contained the following message: "<epc:pin name="summary"/>"</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Review">A review is available at <epc:pin name="link"/></epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Endorsement">An endorsement is available at <epc:pin name="link"/></epp:phrase>
 
 
     <!-- Request Form and Action -->
@@ -45,5 +57,7 @@ a
 
     <!-- PCI Responses -->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:responses_header"><h3>Responses</h3></epp:phrase>   
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:awaiting_response"><h3>Awaiting Response</h3></epp:phrase>
+
 
 </epp:phrases>
