@@ -94,7 +94,7 @@ sub render
 }
 
     # present option to request review if no status or last response was reject
-    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "Reject" || $self->{processor}->{status}eq "fail" )
+    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "Reject" || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
     {
         # form
 	    $frag->appendChild( $self->render_request_form );
