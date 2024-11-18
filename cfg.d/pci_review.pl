@@ -78,3 +78,52 @@ $c->{ldn_inboxes}->{pci_review} = {
         }
     }
 };
+
+# Compiled Script functionality to do checks for reviews in citations
+{
+package EPrints::Script::Compiled;
+use strict;
+
+sub run_is_pci_reviewed
+{
+    my( $self, $state, $eprint ) = @_;
+
+    my $session = $state->{session};
+
+    $eprint = $eprint->[0];
+
+    my $reviewed = 0;
+
+    # get our current status
+    my $status = $eprint->get_pci_status;
+
+    print STDERR "status: $status\n";
+
+    if( $status eq "AnnounceEndorsement" )
+    {
+        $reviewed = 1;       
+    }
+    return [ $reviewed, "BOOLEAN" ];
+}
+
+sub run_pci_review_link
+{
+    my( $self, $state, $eprint ) = @_;
+
+    my $session = $state->{session};
+
+    $eprint = $eprint->[0];
+ 
+    my $latest_pci = $eprint->get_latest_pci_ldn;
+    my $latest_response = $latest_pci->get_latest_response;
+
+    my $review = $latest_response->get_content_value( "object" )->{id};
+
+    my $xml = $session->xml;
+    my $link = $xml->create_element( "a", href => $review );
+    $link->appendChild( $session->make_text( $review ) );
+
+    return [ $link, "XHTML" ];
+}
+
+}

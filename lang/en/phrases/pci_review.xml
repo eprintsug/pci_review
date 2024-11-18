@@ -32,8 +32,8 @@
 
 
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:summary">The response contained the following message: "<epc:pin name="summary"/>"</epp:phrase>
-    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Review">A review is available at <epc:pin name="link"/></epp:phrase>
-    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Endorsement">An endorsement is available at <epc:pin name="link"/></epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Review">The review is available at <epc:pin name="link"/></epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Endorsement">The endorsement is available at <epc:pin name="link"/></epp:phrase>
 
 
     <!-- Request Form and Action -->

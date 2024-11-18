@@ -91,3 +91,14 @@ div.pci_status .pci_status_info div{
     padding: 10px;
     border: 1px solid #c6c7c8;
 }
+
+/*** Summary Page ***/
+.preprint_info{
+    background: #a3cef1;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    margin: auto;
+}
