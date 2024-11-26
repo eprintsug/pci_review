@@ -3,8 +3,22 @@ $c->{plugins}{"Screen::EPrint::PCIRequestReview"}{params}{disable} = 0;
 
 $c->{ldn_inboxes}->{pci_review} = {
     'pci_evolbiol' => 'https://evolbiol.peercommunityin.org/', 
-    'pci_paleo' => 'https://paleo.peercommunityin.org/', 
-    'pci_neuro' => 'https://neuro.peercommunityin.org/'
+    'pci_ecology' => 'https://ecology.peercommunityin.org/',
+    'pci_paleo' => 'https://paleo.peercommunityin.org/',
+    'pci_neuro' => 'https://neuro.peercommunityin.org/',
+    'pci_zool' => 'https://zool.peercommunityin.org/',
+    'pci_genomics' => 'https://genomics.peercommunityin.org/',    
+    'pci_mcb' => 'https://mcb.peercommunityin.org/',    
+    'pci_animsci' => 'https://animsci.peercommunityin.org/',    
+    'pci_forestwoodsci' => 'https://forestwoodsci.peercommunityin.org/',    
+    'pci_archaeo' => 'https://archaeo.peercommunityin.org/',    
+    'pci_networksci' => 'https://networksci.peercommunityin.org/',    
+    'pci_ecotoxenvchem' => 'https://ecotoxenvchem.peercommunityin.org/',    
+    'pci_infections' => 'https://infections.peercommunityin.org/',    
+    'pci_microbiol' => 'https://microbiol.peercommunityin.org/',    
+    'pci_healthmovsci' => 'https://healthmovsci.peercommunityin.org/',    
+    'pci_rr' => 'https://rr.peercommunityin.org/',    
+    'pci_orgstudies' => 'https://orgstudies.peercommunityin.org/',    
 };
 
 # Trigger for refreshing summary pages from PCI announce reviews/endorsements

@@ -9,9 +9,9 @@
           <datasetid>document</datasetid>
           <filename>cfg.d/pci_review.pl</filename>
           <mime_type>text/plain</mime_type>
-          <hash>3a8c65c920b029b84b7db76d357f3e4a</hash>
+          <hash>673a6a065b0c2be2801ce315b1788a94</hash>
           <hash_type>MD5</hash_type>
-          <filesize>3050</filesize>
+          <filesize>5758</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
@@ -33,9 +33,9 @@
           <datasetid>document</datasetid>
           <filename>lang/en/phrases/pci_review.xml</filename>
           <mime_type>application/xml</mime_type>
-          <hash>df861c62cd99636f26f539034e81baf8</hash>
+          <hash>ddf4f6fe7a7f3fc0545cc7a306113019</hash>
           <hash_type>MD5</hash_type>
-          <filesize>5142</filesize>
+          <filesize>8114</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
@@ -49,9 +49,9 @@
           <datasetid>document</datasetid>
           <filename>plugins/PCI_Review/Utils.pm</filename>
           <mime_type>text/plain</mime_type>
-          <hash>d0f2d5058ae744ebd024db31de1692b5</hash>
+          <hash>2fd3a5460cf80bc999402ee30ce605cd</hash>
           <hash_type>MD5</hash_type>
-          <filesize>585</filesize>
+          <filesize>588</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
@@ -76,7 +76,7 @@
       <content>install</content>
     </document>
   </documents>
-  <version>0.1</version>
+  <version>0.2</version>
   <creators>
     <item>
       <name>

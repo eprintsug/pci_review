@@ -43,7 +43,22 @@
     <epp:phrase id="pci_review/inbox:label_pci_evolbiol">Peer Community In Evolutionary Biology</epp:phrase>
     <epp:phrase id="pci_review/inbox:label_pci_neuro">Peer Community In Neuroscience</epp:phrase>
     <epp:phrase id="pci_review/inbox:label_pci_paleo">Peer Community In Paleontology</epp:phrase>
-a
+    <epp:phrase id="pci_review/inbox:label_pci_ecology">Peer Community In Ecology</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_zool">Peer Community In Zoology</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_genomics">Peer Community In Genomics</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_mcb">Peer Community In Mathematical &amp; Computational Biology</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_animsci">Peer Community In Animal Science</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_forestwoodsci">Peer Community In Forest &amp; Wood Sciences</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_archaeo">Peer Community In Archaeology</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_networksci">Peer Community In Network Science</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_ecotoxenvchem">Peer Community In Exotoxicology &amp; Enivronmental Chemistry</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_infections">Peer Community In Infections</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_microbiol">Peer Community In Microbiology</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_healthmovsci">Peer Community In Health &amp; Movement Sciences</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_rr">Peer Community In Registered Reports</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_orgstudies">Peer Community In Organization Studies</epp:phrase>
+    <epp:phrase id="pci_review/inbox:label_pci_psych">Peer Community In Psychology</epp:phrase>
+
     <epp:phrase id="Plugin/Screen/PCIRequestReview:action_request">Submit Review Request</epp:phrase>
 
     <!-- PCI Requests -->
@@ -54,6 +69,22 @@ a
     <epp:phrase id="ldn_to:pci_evolbiol">Peer Community In Evolutionary Biology</epp:phrase>
     <epp:phrase id="ldn_to:pci_neuro">Peer Community In Neuroscience</epp:phrase>
     <epp:phrase id="ldn_to:pci_paleo">Peer Community In Paleontology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_ecology">Peer Community In Ecology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_zool">Peer Community In Zoology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_genomics">Peer Community In Genomics</epp:phrase>
+    <epp:phrase id="ldn_to:pci_mcb">Peer Community In Mathematical &amp; Computational Biology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_animsci">Peer Community In Animal Science</epp:phrase>
+    <epp:phrase id="ldn_to:pci_forestwoodsci">Peer Community In Forest &amp; Wood Sciences</epp:phrase>
+    <epp:phrase id="ldn_to:pci_archaeo">Peer Community In Archaeology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_networksci">Peer Community In Network Science</epp:phrase>
+    <epp:phrase id="ldn_to:pci_ecotoxenvchem">Peer Community In Exotoxicology &amp; Enivronmental Chemistry</epp:phrase>
+    <epp:phrase id="ldn_to:pci_infections">Peer Community In Infections</epp:phrase>
+    <epp:phrase id="ldn_to:pci_microbiol">Peer Community In Microbiology</epp:phrase>
+    <epp:phrase id="ldn_to:pci_healthmovsci">Peer Community In Health &amp; Movement Sciences</epp:phrase>
+    <epp:phrase id="ldn_to:pci_rr">Peer Community In Registered Reports</epp:phrase>
+    <epp:phrase id="ldn_to:pci_orgstudies">Peer Community In Organization Studies</epp:phrase>
+    <epp:phrase id="ldn_to:pci_psych">Peer Community In Psychology</epp:phrase>
+
 
     <!-- PCI Responses -->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:responses_header"><h3>Responses</h3></epp:phrase>   
