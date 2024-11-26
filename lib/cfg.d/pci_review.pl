@@ -7,6 +7,56 @@ $c->{ldn_inboxes}->{pci_review} = {
     'pci_neuro' => 'https://neuro.peercommunityin.org/'
 };
 
+# Trigger for refreshing summary pages from PCI announce reviews/endorsements
+$c->add_dataset_trigger( 'ldn', EPrints::Const::EP_TRIGGER_CREATED, sub{
+
+    my( %params ) = @_;
+
+    my $repo = $params{repository};
+    my $ldn = $params{dataobj};    
+
+    # get the ldn this is in response to
+    return undef unless( $ldn->is_set( "in_reply_to" ) );
+    my $original_ldn = $ldn->get_in_reply_to_ldn;
+    return undef unless defined $original_ldn;
+
+    # get the eprint this is about
+    return undef unless( $original_ldn->is_set( "subject_dataset" ) && $original_ldn->value( "subject_dataset" ) eq "eprint" );
+    return undef unless $original_ldn->is_set( "subject_id" );
+
+    my $eprint = $repo->dataset( "eprint" )->dataobj( $original_ldn->value( "subject_id" ) );
+    return undef unless defined $eprint;
+
+    # check origin and see if it's a PCI
+    my $origin = $ldn->get_content_value( "origin" );
+    return undef if !defined $origin;
+
+    # get the ldn inboxes...
+    my $inboxes = $repo->dataset( "ldn_inbox" )->search(
+        filters => [
+            { meta_fields => [qw( id )], value => keys( %{$repo->config( "ldn_inboxes", "pci_review" )} ), match => 'EQ', merge => 'ANY' },
+        ]
+    );
+
+    my @endpoints;
+    $inboxes->map( sub {
+        (undef, undef, my $ldn_inbox ) = @_;
+        push @endpoints, $ldn_inbox->value( "endpoint" );
+    } );
+
+    if( grep { $origin->{inbox} =~ /^$_\/?$/ } values( @endpoints ) )
+    {
+        # this is an ldn from a PCI inbox
+        # what kind of response is it
+        my $type = $ldn->value( "type" );
+        if( $type eq "AnnounceReview" || $type eq "AnnounceEndorsement" )
+        {
+            # regenerate the static page for this eprint
+            $eprint->generate_static;       
+        }
+    }
+} );
+
 # Extra EPrint DataObj functionality
 {
     package EPrints::DataObj::EPrint;
