@@ -18,7 +18,7 @@
         </span>
         <span class="ep_form_action_button pci_content_toggle">Show content</span>
     </div>
-    <div class="pci_content pci_content_hide"><pre><epc:print expr="content"/></pre></div>
+    <div class="pci_content pci_content_hide"><pre><epc:print expr="$item.ldn_json()"/></pre></div>
 
 </div>
 

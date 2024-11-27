@@ -266,11 +266,19 @@ sub render_requests
                 $response_div->appendChild( $response->render_citation( "pci_ldn_response" ) );
             } );
         }
-        else
+        else # no responses to show...
         {
             $ldn_div->appendChild( my $responses_div = $xml->create_element( "div", class=>"pci_ldn_responses" ) );
             $responses_div->appendChild( my $responses_header = $xml->create_element( "span", class=>"pci_ldn_responses_header" ) );
-            $responses_header->appendChild( $self->html_phrase( "awaiting_response" ) );
+
+            if( $status eq "fail" )
+            {
+                $responses_header->appendChild( $self->html_phrase( "request_failed" ) );
+            }
+            else
+            {
+                $responses_header->appendChild( $self->html_phrase( "awaiting_response" ) );
+            }
            
         }
 

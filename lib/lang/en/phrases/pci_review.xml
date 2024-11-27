@@ -89,6 +89,6 @@
     <!-- PCI Responses -->
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:responses_header"><h3>Responses</h3></epp:phrase>   
     <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:awaiting_response"><h3>Awaiting Response</h3></epp:phrase>
-
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:request_failed"><h3>Request Failed</h3></epp:phrase>
 
 </epp:phrases>

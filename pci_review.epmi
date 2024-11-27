@@ -17,33 +17,33 @@
           <datasetid>document</datasetid>
           <filename>citations/ldn/pci_ldn_request.xml</filename>
           <mime_type>application/xml</mime_type>
-          <hash>22557a19e22e3fb39d10ec0f348e0f56</hash>
+          <hash>ade3b689c5090eed5d1bd3dd7fd22c79</hash>
           <hash_type>MD5</hash_type>
-          <filesize>959</filesize>
+          <filesize>968</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
           <filename>citations/ldn/pci_ldn_response.xml</filename>
           <mime_type>application/xml</mime_type>
-          <hash>d4226dabfa6b94437efc68002780b50a</hash>
+          <hash>f930ed1497bd3d8c8c4f6d452ffd440f</hash>
           <hash_type>MD5</hash_type>
-          <filesize>965</filesize>
+          <filesize>974</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
           <filename>lang/en/phrases/pci_review.xml</filename>
           <mime_type>application/xml</mime_type>
-          <hash>ddf4f6fe7a7f3fc0545cc7a306113019</hash>
+          <hash>87dc5418ee49b33808ff4814812965ed</hash>
           <hash_type>MD5</hash_type>
-          <filesize>8114</filesize>
+          <filesize>8224</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
           <filename>plugins/EPrints/Plugin/Screen/EPrint/PCIRequestReview.pm</filename>
           <mime_type>text/plain</mime_type>
-          <hash>0f8f46db27c44090e3d4e71ff54c39b9</hash>
+          <hash>d28b2a246a19dc9747e20044c7feb72f</hash>
           <hash_type>MD5</hash_type>
-          <filesize>8541</filesize>
+          <filesize>8771</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
@@ -65,9 +65,9 @@
           <datasetid>document</datasetid>
           <filename>static/style/auto/pci.css</filename>
           <mime_type>text/plain</mime_type>
-          <hash>e4163d6b8d6296c3af8f883c00c64905</hash>
+          <hash>b222e97410cbb63d63c1408a9d59768d</hash>
           <hash_type>MD5</hash_type>
-          <filesize>1856</filesize>
+          <filesize>1883</filesize>
         </file>
       </files>
       <mime_type>text/plain</mime_type>
