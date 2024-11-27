@@ -209,7 +209,7 @@ sub action_request_review
             to => $session->param("pci_community"),
             type => "OfferEndorsement",
             subject_id => $eprint->id,
-            subject_dataset => "eprint",
+            subject_dataset => "eprint",        
         },
         $ldn_ds
     );
@@ -217,10 +217,12 @@ sub action_request_review
     my @docs = $eprint->get_all_documents;
     my $document = $docs[0];
     my $user = $self->{session}->current_user;
+    my @type = ( "Offer", "coar-notify:EndorsementAction" );
     $ldn->create_payload_and_send(
         $eprint, # OBJECT
         $user, # ACTOR
-        $document # SUB OBJECT
+        $document, # SUB OBJECT
+        \@type,
     );
 }
 
