@@ -24,7 +24,7 @@ git submodule add https://github.com/eprintsug/pci_review ingredients/pci_review
 git submodule update --init
 ```
 
-Add the following to the flavour/inc file:
+Add the following to the flavour/[flavour_id]/inc file:
 
 ```
 ingredients/coar_notify
