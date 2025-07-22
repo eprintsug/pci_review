@@ -41,9 +41,9 @@
           <datasetid>document</datasetid>
           <filename>plugins/EPrints/Plugin/Screen/EPrint/PCIRequestReview.pm</filename>
           <mime_type>text/plain</mime_type>
-          <hash>d28b2a246a19dc9747e20044c7feb72f</hash>
+          <hash>97dea81b4a805dc879b0309f7074fb9f</hash>
           <hash_type>MD5</hash_type>
-          <filesize>8771</filesize>
+          <filesize>9021</filesize>
         </file>
         <file>
           <datasetid>document</datasetid>
@@ -76,7 +76,7 @@
       <content>install</content>
     </document>
   </documents>
-  <version>0.2</version>
+  <version>0.3</version>
   <creators>
     <item>
       <name>

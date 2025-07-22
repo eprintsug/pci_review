@@ -93,8 +93,8 @@ sub render
         $frag->appendChild( $self->render_status );    
 }
 
-    # present option to request review if no status or last response was reject
-    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "Reject" || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
+    # present option to request review if no status or last response was tentative reject
+    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
     {
         # form
 	    $frag->appendChild( $self->render_request_form );
@@ -218,10 +218,19 @@ sub action_request_review
     my $document = $docs[0];
     my $user = $self->{session}->current_user;
     my @type = ( "Offer", "coar-notify:EndorsementAction" );
+ 
+    # was our last response a tentative reject? If so we need to include this 
+    my $in_reply_to = undef;
+    if( $self->{processor}->{status} eq "TentativeReject" )
+    {
+        $in_reply_to = $self->{processor}->{latest_response}->value( "uuid" );
+    }
+
     $ldn->create_payload_and_send(
         $eprint, # OBJECT
         $user, # ACTOR
         $document, # SUB OBJECT
+        $in_reply_to,
         \@type,
     );
 }
