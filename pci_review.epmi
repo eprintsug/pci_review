@@ -55,6 +55,14 @@
         </file>
         <file>
           <datasetid>document</datasetid>
+          <filename>static/images/epm/pci.jpg</filename>
+          <mime_type>image/jpeg</mime_type>
+          <hash>5a3479d4d27510f037f4fedd18d284fb</hash>
+          <hash_type>MD5</hash_type>
+          <filesize>18805</filesize>
+        </file>
+        <file>
+          <datasetid>document</datasetid>
           <filename>static/javascript/auto/pci.js</filename>
           <mime_type>text/plain</mime_type>
           <hash>a34aee2fc2f9ff14e84f1c829de9acd8</hash>
@@ -75,8 +83,23 @@
       <main>static/style/auto/pci.css</main>
       <content>install</content>
     </document>
+    <document>
+      <files>
+        <file>
+          <datasetid>document</datasetid>
+          <filename>static/images/epm/pci.jpg</filename>
+          <mime_type>image/jpeg</mime_type>
+          <hash>5a3479d4d27510f037f4fedd18d284fb</hash>
+          <hash_type>MD5</hash_type>
+          <filesize>18805</filesize>
+        </file>
+      </files>
+      <format>image</format>
+      <main>static/images/epm/pci.jpg</main>
+      <content>coverimage</content>
+    </document>
   </documents>
-  <version>0.3</version>
+  <version>1.0</version>
   <creators>
     <item>
       <name>
@@ -95,4 +118,5 @@
   </creators>
   <title>PCI Review</title>
   <requirements>COAR Notify (https://github.com/eprintsug/coar_notify)</requirements>
+  <icon>images/epm/pci.jpg</icon>
 </epm>
