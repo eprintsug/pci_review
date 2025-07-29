@@ -93,8 +93,8 @@ sub render
         $frag->appendChild( $self->render_status );    
 }
 
-    # present option to request review if no status or last response was reject
-    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "Reject" || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
+    # present option to request review if no status or last response was tentative reject
+    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
     {
         # form
 	    $frag->appendChild( $self->render_request_form );
@@ -209,7 +209,7 @@ sub action_request_review
             to => $session->param("pci_community"),
             type => "OfferEndorsement",
             subject_id => $eprint->id,
-            subject_dataset => "eprint",
+            subject_dataset => "eprint",        
         },
         $ldn_ds
     );
@@ -217,10 +217,21 @@ sub action_request_review
     my @docs = $eprint->get_all_documents;
     my $document = $docs[0];
     my $user = $self->{session}->current_user;
+    my @type = ( "Offer", "coar-notify:EndorsementAction" );
+ 
+    # was our last response a tentative reject? If so we need to include this 
+    my $in_reply_to = undef;
+    if( $self->{processor}->{status} eq "TentativeReject" )
+    {
+        $in_reply_to = $self->{processor}->{latest_response}->value( "uuid" );
+    }
+
     $ldn->create_payload_and_send(
         $eprint, # OBJECT
         $user, # ACTOR
-        $document # SUB OBJECT
+        $document, # SUB OBJECT
+        $in_reply_to,
+        \@type,
     );
 }
 
@@ -264,11 +275,19 @@ sub render_requests
                 $response_div->appendChild( $response->render_citation( "pci_ldn_response" ) );
             } );
         }
-        else
+        else # no responses to show...
         {
             $ldn_div->appendChild( my $responses_div = $xml->create_element( "div", class=>"pci_ldn_responses" ) );
             $responses_div->appendChild( my $responses_header = $xml->create_element( "span", class=>"pci_ldn_responses_header" ) );
-            $responses_header->appendChild( $self->html_phrase( "awaiting_response" ) );
+
+            if( $status eq "fail" )
+            {
+                $responses_header->appendChild( $self->html_phrase( "request_failed" ) );
+            }
+            else
+            {
+                $responses_header->appendChild( $self->html_phrase( "awaiting_response" ) );
+            }
            
         }
 
