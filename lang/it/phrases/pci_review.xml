@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<!DOCTYPE phrases SYSTEM "entities.dtd">
+
+<epp:phrases xmlns="http://www.w3.org/1999/xhtml" xmlns:epp="http://eprints.org/ep3/phrase" xmlns:epc="http://eprints.org/ep3/control">
+
+    <!-- Screen Action and Intro-->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:title">Invia a PCI</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:description">Invia questo preprint ad una Community di PCI per essere revisionato e ricevere l'endorsement.</epp:phrase>
+
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:help_nostatus">
+        <p>Questo manoscritto pu&ograve; essere inviato ad una delle community di PCI per essere sottoposto a peer review. Una volta valutato il manoscritto, la community pu&ograve; approvarlo e rilasciare una dichiarazione di raccomandazione. In questo caso, un banner viene visualizzato nella pagina di sommario, indicando l’approvazione e evidenziando il manoscritto come un articolo “completo, affidabile e citabile”.</p>
+    </epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:help_status">
+        <p>Una richiesta di revisione &egrave; stata inviata a una community PCI per questo manoscritto. Controllare lo stato della richiesta nel riquadro qui sotto.</p>
+    </epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:help_moreinfo">
+        <p>Per maggiori informazioni consultare <a href="https://peercommunityin.org/" target="_blank">https://peercommunityin.org</a>.</p>
+    </epp:phrase>
+
+    <!-- PCI Status -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:eprint_url">Richiesta inviata per il documento </epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:status">Stato del documento: </epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_fail">Richiesta non andata a buon fine.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_pending">Richiesta in attesa</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject">Respinta</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeAccept">Accettata in via provvisoria</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceReview">Annuncio di Revisione</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceEndorsement">Annuncio di Endorsement</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeReject">Respinta in via provvisoria</epp:phrase>
+
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_Reject:help">La community PCI ha deciso di non approvare il manoscritto. &Egrave; possibile inviare una nuova richiesta di peer review ad un&apos;altra community PCI.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_fail:help">Si &egrave; verificato un problema durante l'invio della richiesta di revisione a PCI. Per favore, riprovare.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_pending:help">La richiesta di revisione &egrave; stata inviata a PCI e sta aspettando una risposta.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeAccept:help">La community PCI ha deciso di sottoporre a peer review il manoscritto. PCI invier&agrave; una notifica non appena le persone incaricate alla revisione avranno espresso il proprio parere.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceReview:help">PCI ha deciso di rilasciare un endorsement per questo record e ha fornito un link alla revisione.</epp:phrase> 
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_AnnounceEndorsement:help">La community PCI ha deciso di raccomandare il manoscritto.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_TentativeReject:help">PCI ritiene che sia necessaria una revisione del manoscritto perchè questo sia approvato. Nella email inviata da PCI &egrave; presente il link alle revisioni e ai commenti editoriali. Una volta pronta la nuova versione del manoscritto, depositala come nuova versione di questo record. Dalla pagina di gestione del nuovo record &egrave; poi possibile inviare una nuova richiesta la richiesta di approvazione alla PCI community e riprendere il processo di valutazione.</epp:phrase>
+
+
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:summary">La risposta contiene il seguente messaggio: "<epc:pin name="summary"/>"</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Review">La revisione &egrave; disponibile all'indirizzo <epc:pin name="link"/></epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:pci_status:Endorsement">L'endorsement &egrave; disponibile all'indirizzo <epc:pin name="link"/></epp:phrase>
+
+
+    <!-- Request Form and Action -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data">Seleziona una comunit&agrave; di revisione PCI</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:data_help">Seleziona una comunit&agrave; PCI a cui inviare dal menu a tendina.</epp:phrase>
+    <epp:phrase id="Plugin/Screen/PCIRequestReview:action_request">Invia Richiesta di Revisione</epp:phrase>
+
+
+    <!-- PCI Requests -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:requests">Richieste</epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:requests_help">Le notifiche passate e presenti inviate e ricevute dalle comunit&agrave; PCI riguardo a questo preprint sono riportate di seguito.</epp:phrase>
+
+
+    <!-- PCI Responses -->
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:responses_header"><h3>Risposte</h3></epp:phrase>   
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:awaiting_response"><h3>In Attesa di Risposta</h3></epp:phrase>
+    <epp:phrase id="Plugin/Screen/EPrint/PCIRequestReview:request_failed"><h3>Richiesta non andata a buon fine</h3></epp:phrase>
+
+</epp:phrases>
