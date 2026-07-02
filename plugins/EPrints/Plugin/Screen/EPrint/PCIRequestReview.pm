@@ -59,11 +59,21 @@ sub can_be_viewed
 {
 	my( $self ) = @_;
 
-    # the eprint must be in the live archive
-    return 0 unless $self->{processor}->{eprint}->value( "eprint_status" ) eq "archive";
+	# the eprint must be in the live archive
+	return 0 unless $self->{processor}->{eprint}->value( "eprint_status" ) eq "archive";
 
-    # and it must have an openly accessible full text
-    return 0 unless $self->{processor}->{eprint}->value( "full_text_status" ) eq "public";
+	# and it must have an openly accessible full text
+	return 0 unless $self->{processor}->{eprint}->value( "full_text_status" ) eq "public";
+
+	# and it must be of an appropriate type
+	# to add an eprint type to the list, put in a configuration file a line similar to the one below
+	#     push @{$c->{plugins}->{"EPrint::PCIRequestReview"}->{params}->{reviewable_types}}, 'preprint';
+	my $plugin_conf = $self->{session}->get_conf( "plugins", "EPrint::PCIRequestReview", "params" );
+	my $type = $self->{processor}->{eprint}->value( "type" );
+	if(defined $plugin_conf->{reviewable_types} && !grep( /^$type$/, @{$plugin_conf->{reviewable_types}} ) )
+	{
+		return 0;
+	}
 
 	return 1; #$self->allow( "eprint/derive_version" );
 }
@@ -85,23 +95,34 @@ sub render
 
 	my $frag = $xml->create_document_fragment;
 
-	$frag->appendChild( $self->html_phrase( "help" ) );
+	# general information
+	if( defined $self->{processor}->{status} )
+	{
+		$frag->appendChild( $self->html_phrase( "help_status" ) );
+	} else {
+		$frag->appendChild( $self->html_phrase( "help_nostatus" ) );
+	}
+	$frag->appendChild( $self->html_phrase( "help_moreinfo" ) );
 
-    # status
-    if( defined $self->{processor}->{status} )
-    {
-        $frag->appendChild( $self->render_status );    
-}
+	# status
+	if( defined $self->{processor}->{status} )
+	{
+		$frag->appendChild( $self->render_status );
+	}
 
-    # present option to request review if no status or last response was tentative reject
-    if( !defined $self->{processor}->{status} || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail" )
-    {
-        # form
-	    $frag->appendChild( $self->render_request_form );
-    }
-    
-    # requests
-    $frag->appendChild( $self->render_requests );
+	# present option to request review if no status or last response was tentative reject
+	# AND this is the latest version of the eprint
+	my $newerVersions = $self->{processor}->{eprint}->later_in_thread( $repo->dataset( "eprint" )->field( "succeeds" ) );
+	my $nextVersion = $newerVersions->item( 0 );
+	if( (!defined $self->{processor}->{status} || $self->{processor}->{status} eq "TentativeReject" || $self->{processor}->{status}eq "fail")
+		&& !defined $nextVersion )
+	{
+		# form
+		$frag->appendChild( $self->render_request_form );
+	}
+
+	# requests
+	$frag->appendChild( $self->render_requests );
 
 	return $frag;
 }
@@ -128,7 +149,7 @@ sub render_status
     $help_div->appendChild( $self->html_phrase( "pci_$status:help" ) );
 
     # show summary info
-    if( defined $self->{processor}->{latest_response} )
+    if( $self->{processor}->{latest_response} )
     {
         my $summary = $self->{processor}->{latest_response}->get_content_value( "summary" );
         if( defined $summary )
@@ -173,10 +194,11 @@ sub render_request_form
 
 	my $form = $div->appendChild( $self->{processor}->screen->render_form( "request_review" ) );
 
-	my @inboxes = keys %{$repo->get_conf("ldn_inboxes", "pci_review")};
+	my $pciconf = $repo->get_conf("ldn_inboxes", "pci_review");
+	my @inboxes = keys %{$pciconf};
 	my %labels;
 	foreach my $key(@inboxes){
-	   $labels{$key} = $repo->phrase("pci_review/inbox:label_".$key);
+	   $labels{$key} = %{$pciconf}{$key}->{"theme"};
 	}
 
 	$form->appendChild($repo->render_option_list( 
@@ -260,6 +282,19 @@ sub render_requests
 
         $div->appendChild( my $ldn_div = $xml->create_element( "div", class => "pci_ldn_request pci_$status" ) );
         $ldn_div->appendChild( $ldn->render_citation( "pci_ldn_request" ) );
+
+	# show eprint id and title, to highlight the presence of multiple eprint versions
+	my $reqeprint = EPrints::DataObj::EPrint->new( $self->{session}, $ldn->get_value("subject_id") );
+	if ( defined $reqeprint )
+	{
+		my $p = $xml->create_element( "p");
+		$p->appendChild( $self->html_phrase( "eprint_url" ) );
+		my $linkurl = $reqeprint->get_url();
+		my $linklabel = "[" . $reqeprint->get_value( "eprintid" ) . "] " .  $reqeprint->get_value( "title" );
+		my $a = $xml->create_data_element( "a", $linklabel, "href" => $linkurl );
+		$p->appendChild( $a );
+		$ldn_div->appendChild( $p );
+	}
 
         # get responses
         my $responses = $ldn->get_responses;

@@ -1,25 +1,24 @@
 $c->{plugins}{"PCI_Review::Utils"}{params}{disable} = 0;
 $c->{plugins}{"Screen::EPrint::PCIRequestReview"}{params}{disable} = 0;
 
-$c->{ldn_inboxes}->{pci_review} = {
-    'pci_evolbiol' => 'https://evolbiol.peercommunityin.org/', 
-    'pci_ecology' => 'https://ecology.peercommunityin.org/',
-    'pci_paleo' => 'https://paleo.peercommunityin.org/',
-    'pci_neuro' => 'https://neuro.peercommunityin.org/',
-    'pci_zool' => 'https://zool.peercommunityin.org/',
-    'pci_genomics' => 'https://genomics.peercommunityin.org/',    
-    'pci_mcb' => 'https://mcb.peercommunityin.org/',    
-    'pci_animsci' => 'https://animsci.peercommunityin.org/',    
-    'pci_forestwoodsci' => 'https://forestwoodsci.peercommunityin.org/',    
-    'pci_archaeo' => 'https://archaeo.peercommunityin.org/',    
-    'pci_networksci' => 'https://networksci.peercommunityin.org/',    
-    'pci_ecotoxenvchem' => 'https://ecotoxenvchem.peercommunityin.org/',    
-    'pci_infections' => 'https://infections.peercommunityin.org/',    
-    'pci_microbiol' => 'https://microbiol.peercommunityin.org/',    
-    'pci_healthmovsci' => 'https://healthmovsci.peercommunityin.org/',    
-    'pci_rr' => 'https://rr.peercommunityin.org/',    
-    'pci_orgstudies' => 'https://orgstudies.peercommunityin.org/',    
-};
+$c->{ldn_inboxes}->{pci_review} = get_pci_community_list();
+
+use JSON;
+use LWP::UserAgent;
+
+sub get_pci_community_list {
+    my $ua = LWP::UserAgent->new();
+    my $response = $ua->get("https://api.peercommunityin.org/all/coar_inbox", Accept => "application/json");
+    # {
+    #   "animsci": {
+    #     "url": "https://animsci.peercommunityin.org/coar_notify/inbox",
+    #     "theme": "Animal Science"
+    #   },
+    #   ...
+    # }
+    return decode_json($response->content);
+    #return decode_json('{"compstat": {"url": "https://compstat.peercommunityin.org/", "theme": "Test community"}}');
+}
 
 # Trigger for refreshing summary pages from PCI announce reviews/endorsements
 $c->add_dataset_trigger( 'ldn', EPrints::Const::EP_TRIGGER_CREATED, sub{
@@ -177,7 +176,7 @@ sub run_pci_review_link
     my $session = $state->{session};
 
     $eprint = $eprint->[0];
- 
+
     my $latest_pci = $eprint->get_latest_pci_ldn;
     my $latest_response = $latest_pci->get_latest_response;
 
